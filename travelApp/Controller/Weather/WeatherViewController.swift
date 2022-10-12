@@ -31,11 +31,12 @@ class WeatherViewController: UIViewController {
     private func getWeather() {
         WeatherService.shared.getWeather { [weak self] (success, weather) in
             self?.toggleActivityIndicator(shown: true)
-            if success, let weather = weather {
+            if let weather = weather {
                 self?.updateWeather(weatherUpdated: weather)
                 self?.toggleActivityIndicator(shown: false)
             } else {
-                self?.presentAlert()
+                self?.toggleActivityIndicator(shown: false)
+                self?.messageAlert(alert: .invalideResponse)
                 self?.setUpDesign()
             }
         }
@@ -48,7 +49,7 @@ class WeatherViewController: UIViewController {
     }
     
     // Get the temperature
-    private func weatherTemp(list: CurrentLocalWeather, tempLabel: UILabel) {
+    private func weatherTemperature(list: CurrentLocalWeather, tempLabel: UILabel) {
         let weatherTemp = Int(list.main.temp)
         tempLabel.text = String(weatherTemp)
     }
@@ -61,18 +62,20 @@ class WeatherViewController: UIViewController {
     
     // Update weather
     private func updateWeather(weatherUpdated: WeatherData) {
-        guard weatherUpdated.list.count >= 2 else { return }
+        guard weatherUpdated.list.count >= 2 else {
+            messageAlert(alert: .countUpdatedCities)
+            return }
         
         // Weather to Nantes
         let weatherNantes = weatherUpdated.list[0]
         weatherCondition(list: weatherNantes, conditionLabel: weatherConditionNantes)
-        weatherTemp(list: weatherNantes, tempLabel: temperatureNantes)
+        weatherTemperature(list: weatherNantes, tempLabel: temperatureNantes)
         weatherIcon(list: weatherNantes, imgView: imgNantes)
         
         // Weather to New York
         let weatherNYC = weatherUpdated.list[1]
         weatherCondition(list: weatherNYC, conditionLabel: weatherConditionNYC)
-        weatherTemp(list: weatherNYC, tempLabel: temperatureNYC)
+        weatherTemperature(list: weatherNYC, tempLabel: temperatureNYC)
         weatherIcon(list: weatherNYC, imgView: imgNYC)
     }
     
@@ -80,9 +83,8 @@ class WeatherViewController: UIViewController {
         compare.isHidden = shown
         activityIndicator.isHidden = !shown
     }
-    
+
     private func setUpDesign() {
-        toggleActivityIndicator(shown: false)
         self.weatherConditionNYC.text = ""
         self.temperatureNYC.text = ""
         self.imgNYC.isHidden = true
@@ -91,10 +93,19 @@ class WeatherViewController: UIViewController {
         self.imgNantes.isHidden = true
     }
     
-    func presentAlert() {
-        let alertVC = UIAlertController(title: "Error", message: "An error has occurred", preferredStyle: .alert)
+    func messageAlert(alert: WeatherDataError) {
+        var message: String
+        switch alert {
+        case .countUpdatedCities:
+            message = "Updated city account error for weather"
+        case .invalideResponse:
+            message = "Error in response Api"
+        case .errorApiKey:
+            message = "Error in apy key"
+        }
+        
+        let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }
-    
 }

@@ -1,0 +1,85 @@
+{
+    "cnt": 2,
+    "list": [
+        {
+            "coord": {
+                "lon": -1.5534,
+                "lat": 47.2173
+            },
+            "sys": {
+                "country": "FR",
+                "timezone": 7200,
+                "sunrise": 1665469102,
+                "sunset": 1665509238
+            },
+            "weather": [
+                {
+                    "id": 804,
+                    "main": "Clouds",
+                    "description": "overcast clouds",
+                    "icon": "04d"
+                }
+            ],
+            "main": {
+                "temp": 13.8,
+                "feels_like": 13.48,
+                "temp_min": 12.9,
+                "temp_max": 14.06,
+                "pressure": 1023,
+                "humidity": 86
+            },
+            "visibility": 10000,
+            "wind": {
+                "speed": 4.63,
+                "deg": 50
+            },
+            "clouds": {
+                "all": 100
+            },
+            "dt": 1665475678,
+            "id": 2990969,
+            "name": "Nantes"
+        },
+        {
+            "coord": {
+                "lon": -73.9662,
+                "lat": 40.7834
+            },
+            "sys": {
+                "country": "US",
+                "timezone": -14400,
+                "sunrise": 1665486155,
+                "sunset": 1665526937
+            },
+            "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "clear sky",
+                    "icon": "01n"
+                }
+            ],
+            "main": {
+                "temp": 11.77,
+                "feels_like": 10.8,
+                "temp_min": 6.65,
+                "temp_max": 13.79,
+                "pressure": 1025,
+                "humidity": 69
+            },
+            "visibility": 10000,
+            "wind": {
+                "speed": 2.06,
+                "deg": 300
+            },
+            "clouds": {
+                "all": 0
+            },
+            "dt": 1665475767,
+            "id": 5125771,
+            "name": "Manhattan"
+        }
+    ]
+}
+
+

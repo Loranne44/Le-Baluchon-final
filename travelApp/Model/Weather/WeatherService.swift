@@ -8,10 +8,6 @@
 import Foundation
 
 class WeatherService {
-    // Task for the request
-    private var task: URLSessionDataTask?
-    let session = URLSession(configuration: .default)
-    
     static var shared = WeatherService()
     private init() {}
     
@@ -20,6 +16,14 @@ class WeatherService {
     private let idNYC = "5125771"
     private let apiKey = "334cb77f2729f993f4f58b192bbd5e23"
     
+    // Task for the request
+    private var task: URLSessionDataTask?
+    private var weatherSession = URLSession(configuration: .default)
+    
+    init(weatherSession: URLSession) {
+        self.weatherSession = weatherSession
+    }
+    
     private func createUrlRequest() -> URLRequest? {
         let finalRequest = "\(url)?id=\(idNantes),\(idNYC)&appid=\(apiKey)&lang=en&units=metric"
         var request = URLRequest(url: URL(string: finalRequest)!)
@@ -27,22 +31,22 @@ class WeatherService {
         return request
     }
     
-    func getWeather(callback: @escaping (Bool, WeatherData?) -> Void) {
+    func getWeather(callback: @escaping (WeatherDataError?, WeatherData?) -> Void) {
         guard let request = createUrlRequest() else {
-            callback(false, nil)
+            callback(.errorApiKey, nil)
             return
         }
         
         task?.cancel()
-        task = session.dataTask(with: request) { data, response, error in
+        task = weatherSession.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
                 guard let data = data, error == nil,
                       let response = response as? HTTPURLResponse, response.statusCode == 200,
                       let responseJSON = try? JSONDecoder().decode(WeatherData.self, from: data) else {
-                    callback(false, nil)
+                    callback(.invalideResponse, nil)
                     return
                 }
-                callback(true, responseJSON)
+                callback(.none, responseJSON)
             }
         }
         task?.resume()

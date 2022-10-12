@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "timestamp": 1665476703,
+    "base": "EUR",
+    "date": "2022-10-11",
+    "rates": {
+        "BTC": 5.0826708e-05,
+        "USD": 0.970878
+    }
+}
+

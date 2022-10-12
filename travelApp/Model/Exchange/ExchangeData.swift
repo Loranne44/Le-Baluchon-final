@@ -7,13 +7,6 @@
 
 import Foundation
 
-enum ExchangeDataError: Error {
-    case invalidDate
-    case invalideResponse
-    case rateNotFound
-    case invalidInput
-}
-
 struct ExchangeData: Decodable {
     let date: String
     let rates : [String: Double]

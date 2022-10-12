@@ -25,20 +25,28 @@ class ExchangeViewController: UIViewController {
     }
     
     private func getRate() {
+        guard let euroInput = eurosTextField.text,
+              let eurosValue = Double(euroInput)
+        else {
+            messageAlert(alert: .invalidAmount)
+            setUpDesign()
+            return
+        }
         ExchangeService.shared.getExchangeCurrency { [weak self] (success, rate) in
             self?.toggleActivityIndicator(shown: true)
-            if success, let rate = rate {
-                let convertBtc = ExchangeService.shared.convertCurrencies(currencie: rate, valueToConvert: "BTC", ratesLabelCurrencie: (self?.bitcoinTextLabel)!, ratesLabelEur: (self?.eurosTextField)!)
+            if let rate = rate {
+                let convertBtc = ExchangeService.shared.convertCurrencies(dataCurrencieTarget: rate, currencieKey: "BTC", euroValue: eurosValue)
                 self?.bitcoinTextLabel.text = "\(convertBtc)"
                 
-                let convertUsd = ExchangeService.shared.convertCurrencies(currencie: rate, valueToConvert: "USD", ratesLabelCurrencie: (self?.dollarsTextLabel)!, ratesLabelEur: (self?.eurosTextField)!)
+                let convertUsd = ExchangeService.shared.convertCurrencies(dataCurrencieTarget: rate, currencieKey: "USD", euroValue: eurosValue)
                 self?.dollarsTextLabel.text = "\(convertUsd)"
                 
                 self?.getDate(with: rate)
                 
                 self?.toggleActivityIndicator(shown: false)
             } else {
-                self?.presentAlert()
+                self?.toggleActivityIndicator(shown: false)
+                self?.messageAlert(alert: ExchangeDataError.invalideData)
                 self?.setUpDesign()
             }
         }
@@ -58,28 +66,27 @@ class ExchangeViewController: UIViewController {
     }
     
     private func setUpDesign() {
-        toggleActivityIndicator(shown: false)
         self.eurosTextField.text = ""
         self.bitcoinTextLabel.text = ""
         self.dollarsTextLabel.text = ""
     }
     
-    /* func messageAlert(alert: ExchangeDataError) {
-     var message: String
-     switch alert {
-     case .invalidDate:
-     message = "Error date download"
-     case .invalideResponse:
-     message = "ee"
-     
-     }
-     let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-     alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-     present(alertVC, animated: true, completion: nil)
-     }*/
-    
-    func presentAlert() {
-        let alertVC = UIAlertController(title: "Error", message: "Une erreur est survenue", preferredStyle: .alert)
+    func messageAlert(alert: ExchangeDataError) {
+        var message: String
+        switch alert {
+        case .invalidDate:
+            message = "Error date download"
+        case .invalideResponse:
+            message = "Error in response Api"
+        case .invalideData:
+            message = "Rates data download failed"
+        case .invalidAmount:
+            message = "Enter a valid amount"
+        case .errorApiKey:
+            message = "Error in apy key"
+        }
+        
+        let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }

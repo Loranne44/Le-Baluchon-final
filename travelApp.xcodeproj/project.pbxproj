@@ -24,7 +24,28 @@
 		45BF1A8028C9EF280076872B /* ExchangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1A7F28C9EF280076872B /* ExchangeViewController.swift */; };
 		45BF1A8228C9F7990076872B /* TranslateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1A8128C9F7990076872B /* TranslateViewController.swift */; };
 		45BF1A8428C9F7CF0076872B /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BF1A8328C9F7CF0076872B /* WeatherViewController.swift */; };
+		45F2059328F6AA6700CB611F /* ExchangeDataErr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F2059228F6AA6700CB611F /* ExchangeDataErr.swift */; };
+		45F2059628F6AC5400CB611F /* TranslateDataErr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F2059528F6AC5400CB611F /* TranslateDataErr.swift */; };
+		45F2059828F6AC6C00CB611F /* WeatherDataErr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F2059728F6AC6C00CB611F /* WeatherDataErr.swift */; };
+		45F205C628F6DEA600CB611F /* WeatherServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F205C528F6DEA600CB611F /* WeatherServiceTest.swift */; };
+		45F205C828F6DEFA00CB611F /* ExchangeServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F205C728F6DEFA00CB611F /* ExchangeServiceTests.swift */; };
+		45F205CA28F6DF3000CB611F /* TranslateServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F205C928F6DF3000CB611F /* TranslateServiceTests.swift */; };
+		45F205CE28F6E06200CB611F /* URLSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F205CD28F6E06200CB611F /* URLSessionFake.swift */; };
+		45F205D228F6E13600CB611F /* Weather.json in Resources */ = {isa = PBXBuildFile; fileRef = 45F205D128F6E13600CB611F /* Weather.json */; };
+		45F205D428F6E14500CB611F /* Translate.json in Resources */ = {isa = PBXBuildFile; fileRef = 45F205D328F6E14500CB611F /* Translate.json */; };
+		45F205D628F6E15700CB611F /* Exchange.json in Resources */ = {isa = PBXBuildFile; fileRef = 45F205D528F6E15700CB611F /* Exchange.json */; };
+		45F205D828F6E25E00CB611F /* FakeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F205D728F6E25E00CB611F /* FakeResponse.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		45F205BE28F6DE4E00CB611F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45BF1A5A28C9E6030076872B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45BF1A6128C9E6030076872B;
+			remoteInfo = travelApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		45064A3B28CA102900FF894A /* asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = asset.xcassets; sourceTree = "<group>"; };
@@ -46,10 +67,29 @@
 		45BF1A7F28C9EF280076872B /* ExchangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeViewController.swift; sourceTree = "<group>"; };
 		45BF1A8128C9F7990076872B /* TranslateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewController.swift; sourceTree = "<group>"; };
 		45BF1A8328C9F7CF0076872B /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		45F2059228F6AA6700CB611F /* ExchangeDataErr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDataErr.swift; sourceTree = "<group>"; };
+		45F2059528F6AC5400CB611F /* TranslateDataErr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateDataErr.swift; sourceTree = "<group>"; };
+		45F2059728F6AC6C00CB611F /* WeatherDataErr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataErr.swift; sourceTree = "<group>"; };
+		45F205BA28F6DE4E00CB611F /* travelAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = travelAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		45F205C528F6DEA600CB611F /* WeatherServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherServiceTest.swift; path = ../WeatherServiceTest.swift; sourceTree = "<group>"; };
+		45F205C728F6DEFA00CB611F /* ExchangeServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeServiceTests.swift; sourceTree = "<group>"; };
+		45F205C928F6DF3000CB611F /* TranslateServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateServiceTests.swift; sourceTree = "<group>"; };
+		45F205CD28F6E06200CB611F /* URLSessionFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionFake.swift; sourceTree = "<group>"; };
+		45F205D128F6E13600CB611F /* Weather.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Weather.json; sourceTree = "<group>"; };
+		45F205D328F6E14500CB611F /* Translate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Translate.json; sourceTree = "<group>"; };
+		45F205D528F6E15700CB611F /* Exchange.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Exchange.json; sourceTree = "<group>"; };
+		45F205D728F6E25E00CB611F /* FakeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		45BF1A5F28C9E6030076872B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		45F205B728F6DE4E00CB611F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -91,6 +131,7 @@
 			children = (
 				458BB04528CF56BE00EAB329 /* ExchangeService.swift */,
 				458BB04C28D0643D00EAB329 /* ExchangeData.swift */,
+				45F2059228F6AA6700CB611F /* ExchangeDataErr.swift */,
 			);
 			path = Exchange;
 			sourceTree = "<group>";
@@ -100,6 +141,7 @@
 			children = (
 				458BB04328CF56B500EAB329 /* TranslateService.swift */,
 				4532690528DDD65900017B3F /* TranslateData.swift */,
+				45F2059528F6AC5400CB611F /* TranslateDataErr.swift */,
 			);
 			path = Translate;
 			sourceTree = "<group>";
@@ -109,6 +151,7 @@
 			children = (
 				458BB04128CF56AA00EAB329 /* WeatherService.swift */,
 				4566C6AF28D9F29B00B83E07 /* WeatherData.swift */,
+				45F2059728F6AC6C00CB611F /* WeatherDataErr.swift */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -117,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				45BF1A6428C9E6030076872B /* travelApp */,
+				45F205BB28F6DE4E00CB611F /* travelAppTests */,
 				45BF1A6328C9E6030076872B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -125,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				45BF1A6228C9E6030076872B /* travelApp.app */,
+				45F205BA28F6DE4E00CB611F /* travelAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,6 +225,37 @@
 			path = Others;
 			sourceTree = "<group>";
 		};
+		45F2059A28F6B1C300CB611F /* Fake */ = {
+			isa = PBXGroup;
+			children = (
+				45F205CD28F6E06200CB611F /* URLSessionFake.swift */,
+				45F205D728F6E25E00CB611F /* FakeResponse.swift */,
+				45F205D528F6E15700CB611F /* Exchange.json */,
+				45F205D328F6E14500CB611F /* Translate.json */,
+				45F205D128F6E13600CB611F /* Weather.json */,
+			);
+			path = Fake;
+			sourceTree = "<group>";
+		};
+		45F2059B28F6B1CA00CB611F /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				45F205C728F6DEFA00CB611F /* ExchangeServiceTests.swift */,
+				45F205C928F6DF3000CB611F /* TranslateServiceTests.swift */,
+				45F205C528F6DEA600CB611F /* WeatherServiceTest.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		45F205BB28F6DE4E00CB611F /* travelAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				45F2059B28F6B1CA00CB611F /* Test */,
+				45F2059A28F6B1C300CB611F /* Fake */,
+			);
+			path = travelAppTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -200,6 +276,24 @@
 			productReference = 45BF1A6228C9E6030076872B /* travelApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		45F205B928F6DE4E00CB611F /* travelAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45F205C028F6DE4E00CB611F /* Build configuration list for PBXNativeTarget "travelAppTests" */;
+			buildPhases = (
+				45F205B628F6DE4E00CB611F /* Sources */,
+				45F205B728F6DE4E00CB611F /* Frameworks */,
+				45F205B828F6DE4E00CB611F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				45F205BF28F6DE4E00CB611F /* PBXTargetDependency */,
+			);
+			name = travelAppTests;
+			productName = travelAppTests;
+			productReference = 45F205BA28F6DE4E00CB611F /* travelAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -207,11 +301,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = NO;
-				LastSwiftUpdateCheck = 1340;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
 					45BF1A6128C9E6030076872B = {
 						CreatedOnToolsVersion = 13.4.1;
+					};
+					45F205B928F6DE4E00CB611F = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = 45BF1A6128C9E6030076872B;
 					};
 				};
 			};
@@ -229,6 +327,7 @@
 			projectRoot = "";
 			targets = (
 				45BF1A6128C9E6030076872B /* travelApp */,
+				45F205B928F6DE4E00CB611F /* travelAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -244,6 +343,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45F205B828F6DE4E00CB611F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F205D628F6E15700CB611F /* Exchange.json in Resources */,
+				45F205D428F6E14500CB611F /* Translate.json in Resources */,
+				45F205D228F6E13600CB611F /* Weather.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -253,14 +362,17 @@
 			files = (
 				45064A4028CA1F3E00FF894A /* WelcomeWeatherViewController.swift in Sources */,
 				45BF1A6628C9E6030076872B /* AppDelegate.swift in Sources */,
+				45F2059628F6AC5400CB611F /* TranslateDataErr.swift in Sources */,
 				45BF1A8428C9F7CF0076872B /* WeatherViewController.swift in Sources */,
 				45064A4228CA1FE400FF894A /* WelcomeExchangeViewController.swift in Sources */,
 				458BB04428CF56B500EAB329 /* TranslateService.swift in Sources */,
+				45F2059828F6AC6C00CB611F /* WeatherDataErr.swift in Sources */,
 				458BB04628CF56BE00EAB329 /* ExchangeService.swift in Sources */,
 				4532690628DDD65900017B3F /* TranslateData.swift in Sources */,
 				458BB04228CF56AA00EAB329 /* WeatherService.swift in Sources */,
 				45BF1A6828C9E6030076872B /* SceneDelegate.swift in Sources */,
 				4566C6B028D9F29B00B83E07 /* WeatherData.swift in Sources */,
+				45F2059328F6AA6700CB611F /* ExchangeDataErr.swift in Sources */,
 				45BF1A8028C9EF280076872B /* ExchangeViewController.swift in Sources */,
 				45064A3E28CA1F2D00FF894A /* WelcomeTranslateViewController.swift in Sources */,
 				45BF1A8228C9F7990076872B /* TranslateViewController.swift in Sources */,
@@ -268,7 +380,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		45F205B628F6DE4E00CB611F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45F205D828F6E25E00CB611F /* FakeResponse.swift in Sources */,
+				45F205CA28F6DF3000CB611F /* TranslateServiceTests.swift in Sources */,
+				45F205CE28F6E06200CB611F /* URLSessionFake.swift in Sources */,
+				45F205C828F6DEFA00CB611F /* ExchangeServiceTests.swift in Sources */,
+				45F205C628F6DEA600CB611F /* WeatherServiceTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		45F205BF28F6DE4E00CB611F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45BF1A6128C9E6030076872B /* travelApp */;
+			targetProxy = 45F205BE28F6DE4E00CB611F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		45BF1A6B28C9E6030076872B /* Main.storyboard */ = {
@@ -460,6 +592,46 @@
 			};
 			name = Release;
 		};
+		45F205C128F6DE4E00CB611F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZBZ792969D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = loranne.travelAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/travelApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/travelApp";
+			};
+			name = Debug;
+		};
+		45F205C228F6DE4E00CB611F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZBZ792969D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = loranne.travelAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/travelApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/travelApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -477,6 +649,15 @@
 			buildConfigurations = (
 				45BF1A7728C9E6050076872B /* Debug */,
 				45BF1A7828C9E6050076872B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45F205C028F6DE4E00CB611F /* Build configuration list for PBXNativeTarget "travelAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45F205C128F6DE4E00CB611F /* Debug */,
+				45F205C228F6DE4E00CB611F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

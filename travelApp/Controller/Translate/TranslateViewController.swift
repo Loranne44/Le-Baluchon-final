@@ -31,12 +31,13 @@ class TranslateViewController: UIViewController {
     private func getTranslation() {
         TranslateService.shared.getTranslation(text: languageDetectedTextView.text) { [weak self] (success, translate) in
             self?.toggleActivityIndicator(shown: true)
-            if success, let translate = translate {
+            if let translate = translate {
                 self?.toggleActivityIndicator(shown: false)
                 self?.getDetectedLanguage(with: translate)
                 self?.receiveTranslation(with: translate)
             } else {
-                self?.presentAlert()
+                self?.toggleActivityIndicator(shown: false)
+                self?.messageAlert(alert: .invalideResponse)
                 self?.setUpDesign()
             }
         }
@@ -56,14 +57,21 @@ class TranslateViewController: UIViewController {
     }
     
     private func setUpDesign() {
-        toggleActivityIndicator(shown: false)
         self.languageDetectedTextView.text = ""
         self.englishTextView.text = ""
         self.languageDetected.text = ""
     }
     
-    func presentAlert() {
-        let alertVC = UIAlertController(title: "Error", message: "Une erreur est survenue", preferredStyle: .alert)
+    func messageAlert(alert: TranslateDataError) {
+        var message: String
+        switch alert {
+        case .invalideResponse:
+            message = "Error in response Api"
+        case .errorApiKey:
+            message = "Error in apy key"
+        }
+        
+        let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }
