@@ -10,6 +10,7 @@
 import XCTest
 
 final class ExchangeServiceTest: XCTestCase {
+    
     // si jai une erreur
     func testGetExchangeCurrencyShouldPostFailedCallBackIfError() {
         // Given
@@ -89,8 +90,20 @@ final class ExchangeServiceTest: XCTestCase {
         }
         wait(for: [expectation], timeout: 0.01)
     }
-    
     // Test erreur création url -> API KEY
     
     // test de la méthode convertCurrencies
+    
+    func testConvertCurrencyShouldSendBackCorrectAnswerIfRatesAreRefreshed() {
+        let exchangeService = ExchangeService(
+            exchangeSession: URLSessionFake(
+                data: FakeResponseData.exchangeCorrectData, response: FakeResponseData.responseOk, error: nil))
+        let expectaction = XCTestExpectation(description: "Wait for queue change.")
+        exchangeService.getExchangeCurrency { (exchangeDataError, rate) in
+            XCTAssertEqual(exchangeDataError, .none)
+            XCTAssertEqual(ExchangeService.shared.convertCurrencies(dataCurrencieTarget: rate!, currencieKey: "USD", euroValue: 1.000), "0.970878")
+            expectaction.fulfill()
+        }
+        wait(for: [expectaction], timeout: 0.01)
+    }
 }

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class ExchangeService {
     static var shared = ExchangeService()
     private init() {}
