@@ -10,8 +10,12 @@ import Foundation
 struct ExchangeData: Decodable {
     let date: String
     let rates : [String: Double]
-    
-    enum CodingKeys: CodingKey {
+}
+  
+
+
+
+/*enum CodingKeys: CodingKey {
         case date
         case rates
     }
@@ -38,3 +42,4 @@ struct ExchangeData: Decodable {
         self.rates = try container.decode([String : Double].self, forKey: .rates)
     }
 }
+*/

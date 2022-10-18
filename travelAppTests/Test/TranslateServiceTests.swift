@@ -11,13 +11,13 @@ import XCTest
 final class TranslateServiceTest: XCTestCase {
 
     // si jai une erreur
-    func testGetExchangeCurrencyShouldPostFailedCallBackIfError() {
+    func testTranslateShouldPostFailedCallBackIfError() {
         // Given
         let translateService = TranslateService(translateSession: URLSessionFake(data: nil, response: nil, error: FakeResponseData.errorTranslate))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        translateService.getTranslation(text: "My house is blue") { translateDataError, translate in
+        translateService.getTranslation(text: "Ma maison est bleue") { translateDataError, translate in
             // Then
             XCTAssertEqual(translateDataError, .invalideResponse)
             XCTAssertNil(translate)
@@ -27,13 +27,13 @@ final class TranslateServiceTest: XCTestCase {
     }
     
     // pas de data recu avec l'appel
-    func testGetExchangeCurrencyShouldPostFailedCallBackIfNoData() {
+    func testTranslateShouldPostFailedCallBackIfNoData() {
         // Given
         let translateService = TranslateService(translateSession: URLSessionFake(data: nil, response: nil, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        translateService.getTranslation(text: "My house is blue") { translateDataError, translate in
+        translateService.getTranslation(text: "Ma maison est bleu") { translateDataError, translate in
             // Then
             XCTAssertEqual(translateDataError, .invalideResponse)
             XCTAssertNil(translate)
@@ -43,13 +43,13 @@ final class TranslateServiceTest: XCTestCase {
     }
     
     // donnée correct mais reponse pas correct
-    func testGetExchangeCurrencyShouldPostFailedCallBackIfIncorrectResponse() {
+    func testGetTranslateShouldPostFailedCallBackIfIncorrectResponse() {
         // Given
         let translateService = TranslateService(translateSession: URLSessionFake(data: FakeResponseData.translateCorrectData , response: FakeResponseData.reponseKO, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        translateService.getTranslation(text: "My house is blue") { translateDataError, translate in
+        translateService.getTranslation(text: "Ma maison est bleu") { translateDataError, translate in
             // Then
             XCTAssertEqual(translateDataError, .invalideResponse)
             XCTAssertNil(translate)
@@ -59,13 +59,13 @@ final class TranslateServiceTest: XCTestCase {
     }
     
     // donnée incorrect mais réponse correct
-    func testGetExchangeCurrencyShouldPostFailedCallBackIfIncorrectData() {
+    func testGetTranslateShouldPostFailedCallBackIfIncorrectData() {
         // Given
         let translateService = TranslateService(translateSession: URLSessionFake(data: FakeResponseData.translateIncorrectData , response: FakeResponseData.responseOk, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        translateService.getTranslation(text: "My house is blue") { translateDataError, translate in
+        translateService.getTranslation(text: "Ma maison est bleu") { translateDataError, translate in
             // Then
             XCTAssertEqual(translateDataError, .invalideResponse)
             XCTAssertNil(translate)
@@ -75,19 +75,50 @@ final class TranslateServiceTest: XCTestCase {
     }
     
     // Tout ok
-    func testGetExchangeCurrencyShouldPostSuccessCallBackIfNoErrorAndCorrectData() {
+    func testGetTranslateShouldPostSuccessCallBackIfNoErrorAndCorrectData() {
         // Given
         let translateService = TranslateService(translateSession: URLSessionFake(data: FakeResponseData.translateCorrectData , response: FakeResponseData.responseOk, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        translateService.getTranslation(text: "My house is blue") { translateDataError, translate in
+        translateService.getTranslation(text: "Ma maison est bleu") { translateDataError, translate in
             // Then
-            XCTAssertEqual(translateDataError, .none)
+            XCTAssertNil(translateDataError)
             XCTAssertNotNil(translate)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
+    func  testGetTranslateShouldSendBackSuccessFullAndCorrectDataIfCorrectAnswer() {
+        // Given
+        let translateService = TranslateService(translateSession: URLSessionFake(data: FakeResponseData.translateCorrectData , response: FakeResponseData.responseOk, error: nil))
+        
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change")
+        translateService.getTranslation(text: "Ma maison est bleu") { (translateDataError, translate) in
+            // Then
+            XCTAssertNil(translateDataError)
+            XCTAssertNotNil(translate)
+            XCTAssertEqual(translate?.translations[0].text, "My house is blue" )
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+    
+    func  testGetTranslateShouldSendBackSuccessFullAndCorrectDataIfCorrectAnswerAndDetectedLanguageFR() {
+        // Given
+        let translateService = TranslateService(translateSession: URLSessionFake(data: FakeResponseData.translateCorrectData , response: FakeResponseData.responseOk, error: nil))
+        
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change")
+        translateService.getTranslation(text: "Ma maison est bleu") { (translateDataError, translate) in
+            // Then
+            XCTAssertNil(translateDataError)
+            XCTAssertNotNil(translate)
+            XCTAssertEqual(translate?.translations[0].detected_source_language, "FR")
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
 }

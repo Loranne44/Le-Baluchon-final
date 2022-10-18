@@ -74,27 +74,44 @@ final class ExchangeServiceTest: XCTestCase {
         }
         wait(for: [expectation], timeout: 0.01)
     }
+
     
-    // Tout ok
-    func testGetExchangeCurrencyShouldPostSuccessCallBackIfNoErrorAndCorrectData() {
-        // Given
-        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: FakeResponseData.exchangeCorrectData , response: FakeResponseData.responseOk, error: nil))
+    // ________________________ A REVOIR _________________________________________
+    
+    func testGetExchangeCurrencyShouldGetSuccessCallbackIfNoErrorAndCorrectDataUSDAndDate() {
+        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: FakeResponseData.exchangeCorrectData, response: FakeResponseData.responseOk, error: nil))
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
         exchangeService.getExchangeCurrency { exchangeDataError, rate in
             // Then
-            XCTAssertEqual(exchangeDataError, .none)
-            XCTAssertNotNil(rate)
+            XCTAssertNil(exchangeDataError)
+            // _____________ base "EUR" COMMENT Y ACCEDER ___________________
+            // XCTAssertEqual(, "EUR")
+            XCTAssertEqual(rate?.rates, ["USD": 0.970878])
+            XCTAssertEqual(rate?.date, "2022-10-18")
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
     }
-    // Test erreur création url -> API KEY
     
-    // test de la méthode convertCurrencies
+    func testGetExchangeCurrencyShouldPostFailedCallBackIfErrorDate() {
+        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: FakeResponseData.exchangeIncorrectData, response: FakeResponseData.responseOk, error: nil))
+        
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change")
+        exchangeService.getExchangeCurrency { exchangeDataError, rate in
+            // Then
+            XCTAssertNotEqual(rate?.date, "2022-10-11")
+            XCTAssertEqual(exchangeDataError, .invalidDate)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+   
+
     
-    func testConvertCurrencyShouldSendBackCorrectAnswerIfRatesAreRefreshed() {
+    /*func testConvertCurrencyShouldSendBackCorrectAnswerIfRatesAreRefreshed() {
         let exchangeService = ExchangeService(
             exchangeSession: URLSessionFake(
                 data: FakeResponseData.exchangeCorrectData, response: FakeResponseData.responseOk, error: nil))
@@ -105,5 +122,15 @@ final class ExchangeServiceTest: XCTestCase {
             expectaction.fulfill()
         }
         wait(for: [expectaction], timeout: 0.01)
-    }
+    }*/
 }
+
+// Test erreur création url -> API KEY
+
+// test de la méthode convertCurrencies
+
+
+// Moke
+// Qd appel web service il renvoi un json
+// Faire en boucle fermé
+// QD on va demander à son application

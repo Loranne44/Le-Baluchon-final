@@ -72,7 +72,7 @@ final class WeatherServiceTest: XCTestCase {
             XCTAssertNil(weather)
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 0.01)
+        wait(for: [expectation], timeout: 0.02)
     }
     
     // Tout ok
@@ -84,11 +84,43 @@ final class WeatherServiceTest: XCTestCase {
         let expectation = XCTestExpectation(description: "Wait for queue change")
         weatherService.getWeather { weatherDataError, weather in
             // Then
-            XCTAssertEqual(weatherDataError, .none)
+            XCTAssertNil(weatherDataError)
             XCTAssertNotNil(weather)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
+    }
+    
+    func testGetWeatherShouldSendBackSuccessFullAndCorrectDataIfCorrectAnswerNantes() {
+        let weatherService = WeatherService(
+            weatherSession: URLSessionFake(
+                data: FakeResponseData.weatherCorrectData, response: FakeResponseData.responseOk, error: nil))
+        let expectaction = XCTestExpectation(description: "Wait for queue change.")
+        weatherService.getWeather { (weatherDataError, weather) in
+            XCTAssertNil(weatherDataError)
+            XCTAssertEqual(weather?.list[0].weather[0].description, "overcast clouds")
+            XCTAssertEqual(weather?.list[0].main.temp, 13.8)
+            expectaction.fulfill()
+        }
+        wait(for: [expectaction], timeout: 0.01)
+    }
+    
+    func testGetWeatherShouldSendBackSuccessFullAndCorrectDataIfCorrectAnswerNYC() {
+        let weatherService = WeatherService(
+            weatherSession: URLSessionFake(
+                data: FakeResponseData.weatherCorrectData, response: FakeResponseData.responseOk, error: nil))
+        
+        // When
+        let expectaction = XCTestExpectation(description: "Wait for queue change.")
+        weatherService.getWeather { (weatherDataError, weather) in
+            
+            // Then
+            XCTAssertNil(weatherDataError)
+            XCTAssertEqual(weather?.list[1].weather[0].description, "clear sky")
+            XCTAssertEqual(weather?.list[1].main.temp, 11.77)
+            expectaction.fulfill()
+        }
+        wait(for: [expectaction], timeout: 0.01)
     }
 }
 
