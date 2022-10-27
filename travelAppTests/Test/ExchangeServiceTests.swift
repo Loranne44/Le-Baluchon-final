@@ -5,132 +5,177 @@
 //  Created by Loranne Joncheray on 12/10/2022.
 //
 
+
+
+
 @testable import travelApp
 
 import XCTest
 
 final class ExchangeServiceTest: XCTestCase {
     
-    // si jai une erreur
-    func testGetExchangeCurrencyShouldPostFailedCallBackIfError() {
+    func testExchangeShouldPostFailedCallBackIfError() {
         // Given
-        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: nil, response: nil, error: FakeResponseData.errorExchange))
+        URLProtocolStub.loadingHandler = { request in
+            let response : HTTPURLResponse = FakeResponseData.responseOk!
+            let error : Error? = FakeResponseData.errorExchange
+            let data: Data? = nil
+            return(response, data, error)
+        }
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLProtocolStub.self]
+        let session = URLSession(configuration: configuration)
+        let exchangeService = ExchangeService(exchangeSession: session)
         
         // When
-        let expectation = XCTestExpectation(description: "Wait for queue change")
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
         exchangeService.getExchangeCurrency { exchangeDataError, rate in
+            
             // Then
-            XCTAssertEqual(exchangeDataError, .invalideResponse)
+            XCTAssertEqual(exchangeDataError, .invalidResponse)
             XCTAssertNil(rate)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
     }
     
-    // pas de data recu avec l'appel
     func testGetExchangeCurrencyShouldPostFailedCallBackIfNoData() {
         // Given
-        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: nil, response: nil, error: nil))
+        URLProtocolStub.loadingHandler = { request in
+            let response : HTTPURLResponse = FakeResponseData.responseOk!
+            let error : Error? = nil
+            let data: Data? = nil
+            return(response, data, error)
+        }
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLProtocolStub.self]
+        let session = URLSession(configuration: configuration)
+        let exchangeService = ExchangeService(exchangeSession: session)
         
         // When
-        let expectation = XCTestExpectation(description: "Wait for queue change")
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
         exchangeService.getExchangeCurrency { exchangeDataError, rate in
+            
             // Then
-            XCTAssertEqual(exchangeDataError, .invalideResponse)
+            XCTAssertEqual(exchangeDataError, .invalidResponse)
             XCTAssertNil(rate)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
     }
     
-    // donnée correct mais reponse pas correct
     func testGetExchangeCurrencyShouldPostFailedCallBackIfIncorrectResponse() {
         // Given
-        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: FakeResponseData.exchangeCorrectData , response: FakeResponseData.reponseKO, error: nil))
+        URLProtocolStub.loadingHandler = { request in
+            let response : HTTPURLResponse = FakeResponseData.responseOk!
+            let error : Error? = nil
+            let data: Data? = FakeResponseData.exchangeIncorrectData
+            return(response, data, error)
+        }
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLProtocolStub.self]
+        let session = URLSession(configuration: configuration)
+        let exchangeService = ExchangeService(exchangeSession: session)
         
         // When
-        let expectation = XCTestExpectation(description: "Wait for queue change")
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
         exchangeService.getExchangeCurrency { exchangeDataError, rate in
+            
             // Then
-            XCTAssertEqual(exchangeDataError, .invalideResponse)
+            XCTAssertEqual(exchangeDataError, .invalidResponse)
             XCTAssertNil(rate)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
     }
-    
-    // donnée incorrect mais réponse correct
+        
     func testGetExchangeCurrencyShouldPostFailedCallBackIfIncorrectData() {
         // Given
-        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: FakeResponseData.exchangeIncorrectData , response: FakeResponseData.responseOk, error: nil))
+        URLProtocolStub.loadingHandler = { request in
+            let response : HTTPURLResponse = FakeResponseData.responseOk!
+            let error : Error? = nil
+            let data: Data? = FakeResponseData.exchangeIncorrectData
+            return(response, data, error)
+        }
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLProtocolStub.self]
+        let session = URLSession(configuration: configuration)
+        let exchangeService = ExchangeService(exchangeSession: session)
         
         // When
-        let expectation = XCTestExpectation(description: "Wait for queue change")
+        let expectation = XCTestExpectation(description: "Wait for queue change.")
         exchangeService.getExchangeCurrency { exchangeDataError, rate in
+            
             // Then
-            XCTAssertEqual(exchangeDataError, .invalideResponse)
+            XCTAssertEqual(exchangeDataError, .invalidResponse)
             XCTAssertNil(rate)
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
     }
-
-    
-    // ________________________ A REVOIR _________________________________________
+        
+    func getDateFromString(stringDate: String) -> Date {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.date(from: stringDate)!
+    }
     
     func testGetExchangeCurrencyShouldGetSuccessCallbackIfNoErrorAndCorrectDataUSDAndDate() {
-        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: FakeResponseData.exchangeCorrectData, response: FakeResponseData.responseOk, error: nil))
+        // Given
+        URLProtocolStub.loadingHandler = { request in
+            let response : HTTPURLResponse = FakeResponseData.responseOk!
+            let error : Error? = nil
+            let data: Data? = FakeResponseData.exchangeCorrectData
+            return(response, data, error)
+        }
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLProtocolStub.self]
+        let session = URLSession(configuration: configuration)
+        let exchangeService = ExchangeService(exchangeSession: session)
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        exchangeService.getExchangeCurrency { exchangeDataError, rate in
+        let date =  getDateFromString(stringDate: "2022-10-18")
+        exchangeService.getExchangeCurrency(date: date) { exchangeDataError, rate in
             // Then
             XCTAssertNil(exchangeDataError)
-            // _____________ base "EUR" COMMENT Y ACCEDER ___________________
-            // XCTAssertEqual(, "EUR")
-            XCTAssertEqual(rate?.rates, ["USD": 0.970878])
+            XCTAssertEqual(rate?.rates["USD"], 0.970878)
             XCTAssertEqual(rate?.date, "2022-10-18")
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
     }
+        
+    /*
     
-    func testGetExchangeCurrencyShouldPostFailedCallBackIfErrorDate() {
-        let exchangeService = ExchangeService(exchangeSession: URLSessionFake(data: FakeResponseData.exchangeIncorrectData, response: FakeResponseData.responseOk, error: nil))
+   // ------------------------------ ?? ---------
+    func testGetExchangeCurrencyShouldGetSuccessCallbackIfErrorAndIncorrectDate() {
+        // Given
+        URLProtocolStub.loadingHandler = { request in
+            let response : HTTPURLResponse = FakeResponseData.responseOk!
+            let error : Error? = nil
+            let data: Data? = FakeResponseData.exchangeIncorrectData
+            return(response, data, error)
+        }
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [URLProtocolStub.self]
+        let session = URLSession(configuration: configuration)
+        let exchangeService = ExchangeService(exchangeSession: session)
         
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        exchangeService.getExchangeCurrency { exchangeDataError, rate in
+        let date =  getDateFromString(stringDate: "2022-10-18")
+        exchangeService.getExchangeCurrency(date: date) { exchangeDataError, rate in
             // Then
-            XCTAssertNotEqual(rate?.date, "2022-10-11")
-            XCTAssertEqual(exchangeDataError, .invalidDate)
+            XCTAssertEqual(exchangeDataError, .invalidResponse)
+            XCTAssertEqual(rate?.date, "2022-10-11")
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
-    }
-   
-
-    
-    /*func testConvertCurrencyShouldSendBackCorrectAnswerIfRatesAreRefreshed() {
-        let exchangeService = ExchangeService(
-            exchangeSession: URLSessionFake(
-                data: FakeResponseData.exchangeCorrectData, response: FakeResponseData.responseOk, error: nil))
-        let expectaction = XCTestExpectation(description: "Wait for queue change.")
-        exchangeService.getExchangeCurrency { (exchangeDataError, rate) in
-            XCTAssertEqual(exchangeDataError, .none)
-            XCTAssertEqual(ExchangeService.shared.convertCurrencies(dataCurrencieTarget: rate!, currencieKey: "USD", euroValue: 1.000), "0.970878")
-            expectaction.fulfill()
-        }
-        wait(for: [expectaction], timeout: 0.01)
     }*/
 }
 
 // Test erreur création url -> API KEY
 
 // test de la méthode convertCurrencies
-
-
-// Moke
-// Qd appel web service il renvoi un json
-// Faire en boucle fermé
-// QD on va demander à son application

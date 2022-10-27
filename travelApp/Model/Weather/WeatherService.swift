@@ -31,6 +31,7 @@ class WeatherService {
         return request
     }
     
+    // Recovery and processing of weather
     func getWeather(callback: @escaping (WeatherDataError?, WeatherData?) -> Void) {
         guard let request = createUrlRequest() else {
             callback(.errorApiKey, nil)
@@ -43,7 +44,7 @@ class WeatherService {
                 guard let data = data, error == nil,
                       let response = response as? HTTPURLResponse, response.statusCode == 200,
                       let responseJSON = try? JSONDecoder().decode(WeatherData.self, from: data) else {
-                    callback(.invalideResponse, nil)
+                    callback(.invalidResponse, nil)
                     return
                 }
                 callback(.none, responseJSON)

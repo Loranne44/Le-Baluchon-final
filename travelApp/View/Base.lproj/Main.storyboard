@@ -57,10 +57,10 @@
             </objects>
             <point key="canvasLocation" x="-1046" y="-786"/>
         </scene>
-        <!--Welcome Exchange View Controller-->
+        <!--View Controller-->
         <scene sceneID="hqi-ud-IXP">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="tyG-vh-nHn" customClass="WelcomeExchangeViewController" customModule="travelApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="tyG-vh-nHn" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GoU-za-GYG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -291,10 +291,10 @@
             </objects>
             <point key="canvasLocation" x="469.56521739130437" y="-786.16071428571422"/>
         </scene>
-        <!--Welcome Weather View Controller-->
+        <!--View Controller-->
         <scene sceneID="JWT-2a-Tc8">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="klV-SP-56B" customClass="WelcomeWeatherViewController" customModule="travelApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="klV-SP-56B" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nu9-tv-ldo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -495,8 +495,8 @@
                     <connections>
                         <outlet property="activityIndicator" destination="4Q6-6p-udd" id="lX3-MF-Zhr"/>
                         <outlet property="compare" destination="7KI-P6-dyy" id="Wef-oo-T0T"/>
-                        <outlet property="imgNYC" destination="pqj-W5-ItM" id="V7l-N4-8WK"/>
-                        <outlet property="imgNantes" destination="pdf-Bb-Cev" id="Uo9-Ma-1yX"/>
+                        <outlet property="iconNYC" destination="pqj-W5-ItM" id="V7l-N4-8WK"/>
+                        <outlet property="iconNantes" destination="pdf-Bb-Cev" id="Uo9-Ma-1yX"/>
                         <outlet property="temperatureNYC" destination="6lM-XP-sLu" id="yxS-fZ-8x5"/>
                         <outlet property="temperatureNantes" destination="UXL-pR-VsH" id="LBb-uf-AeQ"/>
                         <outlet property="weatherConditionNYC" destination="6fn-Ww-JBh" id="WsF-ou-k4W"/>
@@ -507,10 +507,10 @@
             </objects>
             <point key="canvasLocation" x="469.56521739130437" y="549.77678571428567"/>
         </scene>
-        <!--Welcome Translate View Controller-->
+        <!--View Controller-->
         <scene sceneID="ud6-xr-b3Y">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="HWg-V8-zC6" customClass="WelcomeTranslateViewController" customModule="travelApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="HWg-V8-zC6" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Sk-WT-mXu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -22,6 +22,7 @@ class TranslateService {
         self.translateSession = translateSession
     }
     
+    // URL & Request configuration
     private func createUrlRequest(text: String) -> URLRequest? {
         guard let escapedString = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return nil }
         let finalRequest = "\(translateUrl)?auth_key=\(apiKey)&text=\(escapedString)&target_lang=en"
@@ -29,7 +30,8 @@ class TranslateService {
         request.httpMethod = "POST"
         return request
     }
-        
+     
+    // Recovery and processing of translation
     func getTranslation(text: String, callback: @escaping (TranslateDataError?, TranslateData?) -> Void) {
         guard let request = createUrlRequest(text: text) else {
             callback(.errorApiKey, nil)
@@ -42,7 +44,7 @@ class TranslateService {
                 guard let data = data, error == nil,
                       let response = response as? HTTPURLResponse, response.statusCode == 200,
                       let responseJSON = try? JSONDecoder().decode(TranslateData.self, from: data) else {
-                    callback(.invalideResponse, nil)
+                    callback(.invalidResponse, nil)
                     return
                 }
                 callback(.none, responseJSON)

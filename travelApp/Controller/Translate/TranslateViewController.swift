@@ -25,6 +25,7 @@ class TranslateViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        activityIndicator.isHidden = true
         setUpDesign()
     }
     
@@ -37,7 +38,7 @@ class TranslateViewController: UIViewController {
                 self?.receiveTranslation(with: translate)
             } else {
                 self?.toggleActivityIndicator(shown: false)
-                self?.messageAlert(alert: .invalideResponse)
+                self?.messageAlert(alert: .invalidResponse)
                 self?.setUpDesign()
             }
         }
@@ -47,6 +48,7 @@ class TranslateViewController: UIViewController {
         self.languageDetected.text = detected_source_language.translations[0].detected_source_language
     }
     
+    // ______________ ??________________
     private func receiveTranslation(with text: TranslateData) {
         self.englishTextView.text = text.translations[0].text
     }
@@ -63,15 +65,7 @@ class TranslateViewController: UIViewController {
     }
     
     func messageAlert(alert: TranslateDataError) {
-        var message: String
-        switch alert {
-        case .invalideResponse:
-            message = "Error in response Api"
-        case .errorApiKey:
-            message = "Error in apy key"
-        }
-        
-        let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let alertVC = UIAlertController(title: "Error", message: alert.message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }

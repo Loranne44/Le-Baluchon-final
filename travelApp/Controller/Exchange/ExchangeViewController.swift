@@ -17,6 +17,7 @@ class ExchangeViewController: UIViewController {
     @IBOutlet weak var dateUpdated: UILabel!
     
     override func viewDidLoad() {
+        activityIndicator.isHidden = true
         setUpDesign()
     }
     
@@ -46,7 +47,7 @@ class ExchangeViewController: UIViewController {
                 self?.toggleActivityIndicator(shown: false)
             } else {
                 self?.toggleActivityIndicator(shown: false)
-                self?.messageAlert(alert: ExchangeDataError.invalideData)
+                self?.messageAlert(alert: ExchangeDataError.invalidData)
                 self?.setUpDesign()
             }
         }
@@ -72,21 +73,7 @@ class ExchangeViewController: UIViewController {
     }
     
     func messageAlert(alert: ExchangeDataError) {
-        var message: String
-        switch alert {
-        case .invalidDate:
-            message = "Error date download"
-        case .invalideResponse:
-            message = "Error in response Api"
-        case .invalideData:
-            message = "Rates data download failed"
-        case .invalidAmount:
-            message = "Enter a valid amount"
-        case .errorApiKey:
-            message = "Error in apy key"
-        }
-        
-        let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let alertVC = UIAlertController(title: "Error", message:  alert.message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }

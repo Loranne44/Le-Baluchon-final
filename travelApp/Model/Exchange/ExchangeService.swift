@@ -22,34 +22,27 @@ class ExchangeService {
         self.exchangeSession = exchangeSession
     }
     
-    // URL + KEY
+    // URL & Request configuration
     private func createUrlWithKey() -> URLRequest? {
         let url = "\(exchangeCurrencyUrl)&symbols=USD,BTC"
+        
+        
+        
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
         request.addValue("Vtagy2z1zp79DO0hNjWEhVTsW8Uwc6uV", forHTTPHeaderField: "apikey")
         return request
     }
     
-    // Récuperer la réponse du changement de devise   ------ Error exchangeDataError
-    func getExchangeCurrency(dates: Date = .now, callback: @escaping (ExchangeDataError?, ExchangeData?) -> Void) {
+    // Rate recovery and processing
+    func getExchangeCurrency(date: Date = .now, callback: @escaping (ExchangeDataError?, ExchangeData?) -> Void) {
         
         var dateOfDay: String {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
-            return formatter.string(from: dates)
+            return formatter.string(from: date)
         }
-       
-        /*
-        var dateNow: String {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            return formatter.string(from: dateOfToday)
-        }
-        
-        let dateOfToday = Date()
-         */
-        
+    
         guard let request = createUrlWithKey()  else {
             callback(.errorApiKey, nil)
             return
@@ -64,24 +57,22 @@ class ExchangeService {
                       let response = response as? HTTPURLResponse,
                       response.statusCode == 200,
                       let responseJSON = try? JSONDecoder().decode(ExchangeData.self, from: data) else {
-                    callback(.invalideResponse, nil)
-                    // DO try catch catch : invalid response
+                    callback(.invalidResponse, nil)
                     return
                 }
-                
+                // Verification that the date is the same as today's
+                // guard a la place du if else
                if responseJSON.date == dateOfDay {
                     callback(.none, responseJSON)
                 } else {
                     callback(.invalidDate, nil)
                 }
-                    
-                // responseJson == une date -> qui ne doit pas etre now mais un parametre que j'introduit --- comparaison ici des dates
-               // callback(.none, responseJSON)
             }
         }
         task?.resume()
     }
     
+    // Data conversion
     func convertCurrencies(
         dataCurrencieTarget: ExchangeData,
         currencieKey: String,

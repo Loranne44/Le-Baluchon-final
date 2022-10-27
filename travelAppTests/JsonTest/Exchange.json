@@ -8,7 +8,3 @@
         "USD": 0.970878
     }
 }
-
-
-// pour rates
-// XCTAssertEqual(response.base = "EUR")

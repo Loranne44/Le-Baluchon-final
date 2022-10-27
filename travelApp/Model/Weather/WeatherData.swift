@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+// Nom: structure de données 
 // Struct weatherData
 struct WeatherData: Decodable {
     let list: [CurrentLocalWeather]
