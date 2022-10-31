@@ -11,7 +11,7 @@ class WeatherService {
     static var shared = WeatherService()
     private init() {}
     
-    private let url = "https://api.openweathermap.org/data/2.5/group"
+    private let weatherUrl = "https://api.openweathermap.org/data/2.5/group"
     private let idNantes = "2990969"
     private let idNYC = "5125771"
     private let apiKey = "334cb77f2729f993f4f58b192bbd5e23"
@@ -25,8 +25,9 @@ class WeatherService {
     }
     
     private func createUrlRequest() -> URLRequest? {
-        let finalRequest = "\(url)?id=\(idNantes),\(idNYC)&appid=\(apiKey)&lang=en&units=metric"
-        var request = URLRequest(url: URL(string: finalRequest)!)
+        let rawUrl = "\(weatherUrl)?id=\(idNantes),\(idNYC)&appid=\(apiKey)&lang=en&units=metric"
+        guard let url = URL(string: rawUrl) else { return nil }
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         return request
     }

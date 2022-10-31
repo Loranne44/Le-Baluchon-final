@@ -12,7 +12,7 @@ class TranslateService {
     private init() {}
     
     private let translateUrl = "https://api-free.deepl.com/v2/translate"
-    private let apiKey = "d0d758bf-623c-d2ce-11a4-f9830006bbe2:fx"
+    private let apiKey = "63b25206-d852-dbf0-135e-01e1b36b9af3:fx"
     
     // Task for the request
     private var task: URLSessionDataTask?
@@ -25,8 +25,9 @@ class TranslateService {
     // URL & Request configuration
     private func createUrlRequest(text: String) -> URLRequest? {
         guard let escapedString = text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return nil }
-        let finalRequest = "\(translateUrl)?auth_key=\(apiKey)&text=\(escapedString)&target_lang=en"
-        var request = URLRequest(url: URL(string: finalRequest)!)
+        let rawUrl = "\(translateUrl)?auth_key=\(apiKey)&text=\(escapedString)&target_lang=en"
+        guard let url = URL(string: rawUrl) else { return nil }
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         return request
     }
@@ -37,12 +38,14 @@ class TranslateService {
             callback(.errorApiKey, nil)
             return
         }
-        
+
         task?.cancel()
         task = translateSession.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
-                guard let data = data, error == nil,
-                      let response = response as? HTTPURLResponse, response.statusCode == 200,
+                guard let data = data,
+                      error == nil,
+                      let response = response as? HTTPURLResponse,
+                      response.statusCode == 200,
                       let responseJSON = try? JSONDecoder().decode(TranslateData.self, from: data) else {
                     callback(.invalidResponse, nil)
                     return

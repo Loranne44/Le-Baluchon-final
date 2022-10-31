@@ -44,13 +44,14 @@ class TranslateViewController: UIViewController {
         }
     }
     
-    private func getDetectedLanguage(with detected_source_language: TranslateData) {
-        self.languageDetected.text = detected_source_language.translations[0].detected_source_language
+    private func getDetectedLanguage(with detectedSourceLanguage: TranslateData) {
+        guard let languageDetected = detectedSourceLanguage.translations.first?.detected_source_language else { return }
+        self.languageDetected.text = languageDetected
     }
     
-    // ______________ ??________________
     private func receiveTranslation(with text: TranslateData) {
-        self.englishTextView.text = text.translations[0].text
+        guard let englishText = text.translations.first?.text else { return }
+        self.englishTextView.text = englishText
     }
     
     private func toggleActivityIndicator(shown: Bool) {

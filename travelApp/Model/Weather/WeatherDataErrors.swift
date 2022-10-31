@@ -23,5 +23,3 @@ enum WeatherDataError: Error {
         }
     }
 }
-
-// A modifier dans le controller

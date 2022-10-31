@@ -29,4 +29,3 @@ enum ExchangeDataError: Error {
         }
     }
 }
-

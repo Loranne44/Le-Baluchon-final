@@ -85,4 +85,3 @@ extension ExchangeViewController : UITextFieldDelegate {
         return true
     }
 }
-// ARC a revoir pour la gestion de la mémoire

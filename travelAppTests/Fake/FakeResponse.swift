@@ -31,8 +31,8 @@ class FakeResponseData {
     // Exchange
     static var exchangeCorrectData: Data {
         let bundle = Bundle(for: FakeResponseData.self)
-        let url = bundle.url(forResource: "Exchange", withExtension: "json")
-        guard let data = try? Data(contentsOf: url!) else {
+        let url = bundle.url(forResource: "ExchangeStub", withExtension: "json")
+       guard let data = try? Data(contentsOf: url!) else {
             fatalError("Exchange.json can't be loaded")
         }
         return data
@@ -41,7 +41,7 @@ class FakeResponseData {
     // Weather
     static var weatherCorrectData: Data {
         let bundle = Bundle(for: FakeResponseData.self)
-        let url = bundle.url(forResource: "Weather", withExtension: "json")
+        let url = bundle.url(forResource: "WeatherStub", withExtension: "json")
         guard let data = try? Data(contentsOf: url!) else {
             fatalError("Weather.json can't be loaded")
         }
@@ -51,7 +51,7 @@ class FakeResponseData {
     // Translate
     static var translateCorrectData: Data {
         let bundle = Bundle(for: FakeResponseData.self)
-        let url = bundle.url(forResource: "Translate", withExtension: "json")
+        let url = bundle.url(forResource: "TranslateStub", withExtension: "json")
         guard let data = try? Data(contentsOf: url!) else {
             fatalError("Translate.json can't be loaded")
         }
